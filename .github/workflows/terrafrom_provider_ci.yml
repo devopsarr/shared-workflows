@@ -1,0 +1,86 @@
+# Terraform Provider testing workflow.
+name: CI
+
+on:
+  workflow_call:
+
+# Testing only needs permissions to read the repository contents.
+permissions:
+  contents: read
+
+# Default values to simplify job configurations below.
+env:
+  GO_VERSION: '1.19'
+
+jobs:
+  # Lint
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - uses: actions/checkout@v3
+      - name: lint
+        uses: golangci/golangci-lint-action@v3.3.1
+        with:
+          version: v1.50.1
+
+  # Ensure project builds before running testing matrix.
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - uses: actions/checkout@v3
+      - run: go mod download
+      - name: build
+        run: go build -v .
+
+  # Run acceptance tests in a matrix with Terraform CLI versions.
+  test:
+    name: Acceptance (Ⓐ${{ matrix.terraform }})
+    needs: [lint, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # list of Terraform supported versions.
+        terraform:
+          - '1.1.*'
+          - '1.2.*'
+          - '1.3.*'
+    steps:
+      - uses: actions/checkout@v3
+      - name: config rights
+        run: >
+          sudo chown 1000:1000 ${{ github.workspace }}/.github/provider/config.xml &&
+          sudo chmod +x ${{ github.workspace }}/.github/provider/test.sh
+      - name: run provider
+        run: docker-compose -f ${{ github.workspace }}/.github/provider/docker-compose.yml up -d
+      - name: setup go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ matrix.terraform }}
+          terraform_wrapper: false
+      - run: go mod download
+      - name: run tests
+        run: go test -race -coverprofile=coverage.out -covermode=atomic -v -cover ./internal/provider/
+        env:
+          # Specific provider env variables must be set on a repo level.
+          TF_ACC: "1"
+        timeout-minutes: 10
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: false
