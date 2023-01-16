@@ -3,6 +3,20 @@ name: CI
 
 on:
   workflow_call:
+    inputs:
+      app-name:
+        description: 'Upeercase app name'
+        type: string
+        required: true
+      url:
+        description: 'App URL'
+        type: string
+        required: true
+      # TODO: move into secret
+      api-key:
+        description: 'App API Key'
+        type: string
+        required: true
 
 # Testing only needs permissions to read the repository contents.
 permissions:
@@ -77,7 +91,8 @@ jobs:
       - name: run tests
         run: go test -race -coverprofile=coverage.out -covermode=atomic -v -cover ./internal/provider/
         env:
-          # Specific provider env variables must be set on a repo level.
+          ${{ inputs.app-name }}_URL: ${{ inputs.url }}
+          ${{ inputs.app-name }}_API_KEY: ${{ inputs.api-key }}
           TF_ACC: "1"
         timeout-minutes: 10
       - name: Upload coverage to Codecov
