@@ -12,11 +12,6 @@ on:
         description: 'App URL'
         type: string
         required: true
-      # TODO: move into secret
-      api-key:
-        description: 'App API Key'
-        type: string
-        required: true
 
 # Testing only needs permissions to read the repository contents.
 permissions:
@@ -72,6 +67,8 @@ jobs:
           - '1.3.*'
     steps:
       - uses: actions/checkout@v3
+      - name: create config file
+        run: echo "<Config><ApiKey>${{ secrets.APP_API_KEY }}</ApiKey></Config>" > ${{ github.workspace }}/.github/provider/config.xml
       - name: config rights
         run: >
           sudo chown 1000:1000 ${{ github.workspace }}/.github/provider/config.xml &&
@@ -92,7 +89,7 @@ jobs:
         run: go test -race -coverprofile=coverage.out -covermode=atomic -v -cover ./internal/provider/
         env:
           ${{ inputs.app-name }}_URL: ${{ inputs.url }}
-          ${{ inputs.app-name }}_API_KEY: ${{ inputs.api-key }}
+          ${{ inputs.app-name }}_API_KEY: ${{ secrets.APP_API_KEY }}
           TF_ACC: "1"
         timeout-minutes: 10
       - name: Upload coverage to Codecov
