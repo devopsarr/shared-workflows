@@ -159,7 +159,7 @@ jobs:
 
       - name: Set API key before integration test
         run: >
-          echo "${{ inputs.collection-name }}_api_key: '${{ secrets.APP_API_KEY }}'" >> ./tests/integration/integration.yml
+          echo -e "\n${{ inputs.collection-name }}_api_key: ${{ secrets.APP_API_KEY }}" >> ./tests/integration/integration_config.yml
         working-directory: ./ansible_collections/${{ inputs.namespace }}/${{ inputs.collection-name }}
 
       # Run the integration tests
