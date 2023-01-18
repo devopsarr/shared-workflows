@@ -57,7 +57,7 @@ jobs:
         with:
           fail_ci_if_error: false
 
-###
+### TO BE ADDED AS NEEDED
 # Unit tests (OPTIONAL)
 #
 # https://docs.ansible.com/ansible/latest/dev_guide/testing_units.html
@@ -132,6 +132,9 @@ jobs:
         with:
           path: ansible_collections/${{ inputs.namespace }}/${{ inputs.collection-name }}
 
+      - name: create config file
+        run: >
+          echo "<Config><ApiKey>${{ secrets.APP_API_KEY }}</ApiKey></Config>" > ${{ github.workspace }}/ansible_collections/${{ inputs.namespace }}/${{ inputs.collection-name }}/.github/provider/config.xml
       - name: config rights
         run: >
           sudo chown 1000:1000 ${{ github.workspace }}/ansible_collections/${{ inputs.namespace }}/${{ inputs.collection-name }}/.github/provider/config.xml &&
@@ -153,6 +156,11 @@ jobs:
       #   run: ansible-galaxy collection install ansible.netcommon -p .
       - name: Install python dependencies
         run: pip install --upgrade git+https://github.com/devopsarr/${{ inputs.collection-name }}-py.git --upgrade-strategy eager --disable-pip-version-check
+
+      - name: Set API key before integration test
+        run: >
+          echo "${{ collection-name }}_api_key: '${{ secrets.APP_API_KEY }}'" >> ./tests/integration/integration.yml
+        working-directory: ./ansible_collections/${{ inputs.namespace }}/${{ inputs.collection-name }}
 
       # Run the integration tests
       - name: Run integration test

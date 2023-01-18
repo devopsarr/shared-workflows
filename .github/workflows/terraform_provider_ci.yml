@@ -86,7 +86,7 @@ jobs:
           terraform_wrapper: false
       - run: go mod download
       - name: run tests
-        run: go test -race -coverprofile=coverage.out -covermode=atomic -v -cover ./internal/provider/
+        run: go test -race -coverprofile=coverage.out -covermode=atomic -v -cover ./...
         env:
           ${{ inputs.app-name }}_URL: ${{ inputs.url }}
           ${{ inputs.app-name }}_API_KEY: ${{ secrets.APP_API_KEY }}
