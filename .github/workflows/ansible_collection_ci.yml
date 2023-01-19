@@ -20,7 +20,10 @@ jobs:
       matrix:
         ansible:
         # List of supported ansible
+          - stable-2.12
+          - stable-2.13
           - stable-2.14
+          - devel
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -122,9 +125,14 @@ jobs:
       fail-fast: false
       matrix:
         ansible:
+          - stable-2.12
+          - stable-2.13
           - stable-2.14
+          - devel
         python:
-          - '3.10'       
+          - '3.9'
+          - '3.10'
+          - '3.11'
 
     steps:
       - name: Check out code
