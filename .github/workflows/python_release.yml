@@ -42,10 +42,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install build requests pydantic
-      - name: Set version in pyproject.toml
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          sed -re "s/^version = .*$/version = \"${VERSION}\"/" -i pyproject.toml
       - name: Build package
         run: python -m build
       - name: Publish package
