@@ -91,7 +91,6 @@ jobs:
           ${{ inputs.app-name }}_URL: ${{ inputs.url }}
           ${{ inputs.app-name }}_API_KEY: ${{ secrets.APP_API_KEY }}
           TF_ACC: "1"
-        timeout-minutes: 10
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
