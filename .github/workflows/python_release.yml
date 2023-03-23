@@ -28,6 +28,9 @@ jobs:
         with:
           release-type: python
           token: ${{ secrets.GITHUB_TOKEN }}
+          extra-files: |
+            README.md
+
   pypi-release:
     runs-on: ubuntu-latest
     needs: release-please
