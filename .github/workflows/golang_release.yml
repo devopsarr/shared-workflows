@@ -14,6 +14,12 @@ jobs:
     outputs:
       release_created: ${{ steps.release_please.outputs.release_created }}
     steps:
+      - name: DevOpsArrBOT token
+        id: DevOpsArrBOT
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: '305652'
+          private_key: ${{ secrets.DEVOPSARRBOT_PRIVATE_KEY }}
       - name: app name
         id: app-name
         run: |
@@ -23,6 +29,7 @@ jobs:
         with:
           # Allow access to older tag information.
           fetch-depth: 0
+          token: ${{ steps.DevOpsArrBOT.outputs.token }}
       - uses: actions/setup-go@v4
         with:
           go-version: ${{ env.GO_VERSION }}
@@ -31,7 +38,7 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: go
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.DevOpsArrBOT.outputs.token }}
           extra-files: |
             README.md
             ${{ steps.app-name.outputs.name }}/configuration.go
