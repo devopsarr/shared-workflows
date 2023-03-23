@@ -17,7 +17,8 @@ jobs:
       - name: app name
         id: app-name
         run: |
-          echo "name=${${${{ github.repository	}}##*/}%%-*}" >> $GITHUB_OUTPUT
+          app=${{ github.repository }} &&\
+          echo "name=$(echo $app | sed -e 's%.*/%%g' -e 's%-.*%%g')" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v3
         with:
           # Allow relase please to access older tag information.
