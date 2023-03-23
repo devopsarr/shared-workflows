@@ -14,6 +14,10 @@ jobs:
     outputs:
       release_created: ${{ steps.release_please.outputs.release_created }}
     steps:
+      - name: app name
+        id: app-name
+        run: |
+          echo "name=${${${{ github.repository	}}##*/}%%-*}" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v3
         with:
           # Allow relase please to access older tag information.
@@ -30,6 +34,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           extra-files: |
             README.md
+            ${{ steps.app-name.outputs.name }}/__init__.py
+            ${{ steps.app-name.outputs.name }}/configuration.py
+            ${{ steps.app-name.outputs.name }}/api_client.py
 
   pypi-release:
     runs-on: ubuntu-latest

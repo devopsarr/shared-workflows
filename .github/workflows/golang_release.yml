@@ -14,6 +14,10 @@ jobs:
     outputs:
       release_created: ${{ steps.release_please.outputs.release_created }}
     steps:
+      - name: app name
+        id: app-name
+        run: |
+          echo "name=${${${{ github.repository	}}##*/}%%-*}" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v3
         with:
           # Allow access to older tag information.
@@ -29,6 +33,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           extra-files: |
             README.md
+            ${{ steps.app-name.outputs.name }}/configuration.go
 
   gorelease:
     runs-on: ubuntu-latest
