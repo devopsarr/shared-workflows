@@ -22,7 +22,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release_please.outputs.release_created }}
-      tag_name: ${{ steps.release_please.outputs.tag_name }}
     steps:
       - name: DevOpsArrBOT token
         id: DevOpsArrBOT
@@ -45,16 +44,15 @@ jobs:
         with:
           release-type: python
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
+          changelog-notes-type: github
+          extra-files: |
+            galaxy.yml
   collection-release:
     runs-on: ubuntu-latest
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
     steps:
       - uses: actions/checkout@v3
-      - name: Set version in galaxy.yml
-        run: |
-          version=${{ needs.release-please.outputs.tag_name }}
-          sed -re "s/^version:.*$/version: ${version:1}/" -i galaxy.yml
       - name: Upload collection to Ansible Galaxy
         uses: ansible/ansible-publish-action@v1.0.0
         with:
