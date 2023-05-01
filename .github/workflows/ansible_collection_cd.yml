@@ -44,7 +44,6 @@ jobs:
         with:
           release-type: python
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
-          changelog-notes-type: github
           extra-files: |
             galaxy.yml
   collection-release:
