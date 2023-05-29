@@ -34,6 +34,7 @@ jobs:
         with:
           release-type: go
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
+          commit-search-depth: 1000
   gorelease:
     runs-on: ubuntu-latest
     needs: release-please
