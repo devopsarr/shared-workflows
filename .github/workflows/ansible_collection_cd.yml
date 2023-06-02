@@ -29,6 +29,10 @@ jobs:
         with:
           app_id: '305652'
           private_key: ${{ secrets.DEVOPSARRBOT_PRIVATE_KEY }}
+      - name: set DevOpsArrBOT config
+        run: |
+          git config --global user.name "devopsarr[bot]"
+          git config --global user.email 127950054+devopsarr[bot]@users.noreply.github.com
       - uses: actions/checkout@v3
         with:
           # Allow relase please to access older tag information.
@@ -46,6 +50,16 @@ jobs:
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
           extra-files: |
             galaxy.yml
+      - name: Update changelog
+        if: ${{ !steps.release_please.outputs.release_created }}
+        run: |
+          pip install antsibull-changelog --disable-pip-version-check &&\
+          git checkout release-please--branches--main &&\
+          antsibull-changelog release --refresh &&\
+          git add . &&\
+          git commit --amend --no-edit &&\
+          git push -f
+
   collection-release:
     runs-on: ubuntu-latest
     needs: release-please
