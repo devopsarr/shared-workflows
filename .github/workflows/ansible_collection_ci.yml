@@ -20,9 +20,9 @@ jobs:
       matrix:
         ansible:
         # List of supported ansible
-          - stable-2.12
           - stable-2.13
           - stable-2.14
+          - stable-2.15
           - devel
     runs-on: ubuntu-latest
     steps:
@@ -125,9 +125,9 @@ jobs:
       fail-fast: false
       matrix:
         ansible:
-          - stable-2.12
           - stable-2.13
           - stable-2.14
+          - stable-2.15
           - devel
         python:
           - '3.9'
@@ -135,11 +135,10 @@ jobs:
           - '3.11'
         # exclude not supported combinations
         exclude:
-          - ansible: stable-2.12
-            python: '3.11'
           - ansible: stable-2.13
             python: '3.11'
-
+          - ansible: devel
+            python: '3.9'
     steps:
       - name: Check out code
         uses: actions/checkout@v3
