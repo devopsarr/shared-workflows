@@ -20,7 +20,7 @@ jobs:
         with:
           app_id: '305652'
           private_key: ${{ secrets.DEVOPSARRBOT_PRIVATE_KEY }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # Allow access to older tag information.
           fetch-depth: 0
@@ -40,7 +40,7 @@ jobs:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # Allow access to older tag information.
           fetch-depth: 0
