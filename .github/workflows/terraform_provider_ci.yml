@@ -86,10 +86,12 @@ jobs:
           terraform_version: ${{ matrix.terraform }}
           terraform_wrapper: false
       - run: go mod download
+      - name: Set provider port
+        run: echo "APP_PORT=$(docker port $(echo ${{ inputs.app-name }} | awk '{print tolower($0)}') | awk -F'/' 'NR==1{print $1; exit}'" >> $GITHUB_ENV
       - name: run tests
         run: go test -timeout 30m -race -coverprofile=coverage.out -covermode=atomic -v -cover ./...
         env:
-          ${{ inputs.app-name }}_URL: ${{ inputs.url }}
+          ${{ inputs.app-name }}_URL: "127.0.0.1:${{ env.APP_PORT }}"
           ${{ inputs.app-name }}_API_KEY: ${{ env.API_KEY }}
           TF_ACC: "1"
       - name: Upload coverage to Codecov
