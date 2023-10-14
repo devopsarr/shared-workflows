@@ -87,7 +87,7 @@ jobs:
           terraform_wrapper: false
       - run: go mod download
       - name: Set provider port
-        run: echo "APP_PORT=$(docker port $(echo ${{ inputs.app-name }} | awk '{print tolower($0)}') | awk -F'/' 'NR==1{print $1; exit}'" >> $GITHUB_ENV
+        run: echo "APP_PORT=$(docker port $(echo ${{ inputs.app-name }} | awk '{print tolower($0)}') | awk -F'/' 'NR==1{print $1; exit}')" >> $GITHUB_ENV
       - name: run tests
         run: go test -timeout 30m -race -coverprofile=coverage.out -covermode=atomic -v -cover ./...
         env:
