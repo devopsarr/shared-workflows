@@ -91,7 +91,7 @@ jobs:
       - name: run tests
         run: go test -timeout 30m -race -coverprofile=coverage.out -covermode=atomic -v -cover ./...
         env:
-          ${{ inputs.app-name }}_URL: "127.0.0.1:${{ env.APP_PORT }}"
+          ${{ inputs.app-name }}_URL: "http://127.0.0.1:${{ env.APP_PORT }}"
           ${{ inputs.app-name }}_API_KEY: ${{ env.API_KEY }}
           TF_ACC: "1"
       - name: Upload coverage to Codecov
