@@ -70,7 +70,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: create config file for both *arr and *err apps
         run: >
-          echo "<Config><ApiKey>${{ env.API_KEY }}</ApiKey></Config>" > ${{ github.workspace }}/.github/provider/config.xml
+          echo "<Config><ApiKey>${{ env.API_KEY }}</ApiKey></Config>" > ${{ github.workspace }}/.github/provider/config.xml &&
           echo "{\"main\":{\"apiKey\":\"${{ env.API_KEY }}\"}}" > ${{ github.workspace }}/.github/provider/settings.json
       - name: config rights
         run: >
