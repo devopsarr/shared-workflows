@@ -28,10 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-go@v4
         with:
           go-version-file: 'go.mod'
-      - uses: actions/checkout@v4
       - name: lint
         uses: golangci/golangci-lint-action@v3.7.0
         with:
@@ -43,10 +43,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-go@v4
         with:
           go-version-file: 'go.mod'
-      - uses: actions/checkout@v4
       - run: go mod download
       - name: build
         run: go build -v .
