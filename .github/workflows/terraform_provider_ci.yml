@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v4
         with:
-          go-version-file: '**/go.mod'
+          go-version-file: 'go.mod'
       - uses: actions/checkout@v4
       - name: lint
         uses: golangci/golangci-lint-action@v3.7.0
@@ -45,7 +45,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v4
         with:
-          go-version-file: '**/go.mod'
+          go-version-file: 'go.mod'
       - uses: actions/checkout@v4
       - run: go mod download
       - name: build
@@ -80,7 +80,7 @@ jobs:
       - name: setup go
         uses: actions/setup-go@v4
         with:
-          go-version-file: '**/go.mod'
+          go-version-file: 'go.mod'
       - name: setup terraform
         uses: hashicorp/setup-terraform@v3
         with:
