@@ -33,7 +33,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
       - name: lint
-        uses: golangci/golangci-lint-action@v3.7.0
+        uses: golangci/golangci-lint-action@v3.7.1
         with:
           version: v1.54.0
           skip-pkg-cache: true
