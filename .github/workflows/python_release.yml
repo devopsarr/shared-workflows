@@ -42,7 +42,9 @@ jobs:
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
           extra-files: |
             README.md
+            pyproject.toml
             ${{ steps.app-name.outputs.name }}/__init__.py
+            ${{ steps.app-name.outputs.name }}/setup.py
             ${{ steps.app-name.outputs.name }}/configuration.py
             ${{ steps.app-name.outputs.name }}/api_client.py
 
