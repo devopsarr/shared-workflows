@@ -35,7 +35,7 @@ jobs:
       - name: lint
         uses: golangci/golangci-lint-action@v4.0.0
         with:
-          version: v1.54.0
+          version: v1.56.2
           skip-pkg-cache: true
 
   # Ensure project builds before running testing matrix.
@@ -95,6 +95,7 @@ jobs:
         env:
           ${{ inputs.app-name }}_URL: "http://127.0.0.1:${{ env.APP_PORT }}"
           ${{ inputs.app-name }}_API_KEY: ${{ env.API_KEY }}
+          ${{ inputs.app-name }}_EXTRA_HEADER_test: "acceptance"
           TF_ACC: "1"
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
