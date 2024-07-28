@@ -51,7 +51,7 @@ jobs:
           gpg_private_key: ${{ secrets.TERRAFORM_REGISTRY_GPG }}
           passphrase: ${{ secrets.PASSPHRASE }}
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v5.1.0
+        uses: goreleaser/goreleaser-action@v6.0.0
         with:
           args: release --clean
         env:
