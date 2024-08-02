@@ -78,7 +78,7 @@ jobs:
           sudo chown 1000:1000 ${{ github.workspace }}/.github/provider/config.xml &&
           sudo chmod +x ${{ github.workspace }}/.github/provider/test.sh
       - name: run provider
-        run: docker-compose -f ${{ github.workspace }}/.github/provider/docker-compose.yml up -d
+        run: docker compose -f ${{ github.workspace }}/.github/provider/docker-compose.yml up -d
       - name: setup go
         uses: actions/setup-go@v5
         with:
