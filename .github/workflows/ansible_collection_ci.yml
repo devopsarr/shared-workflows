@@ -60,7 +60,7 @@ jobs:
         working-directory: ./ansible_collections/${{ inputs.namespace }}/${{ inputs.collection-name }}
 
       # See the reports at https://codecov.io/gh/devopsarr/ansible-collection-${{ inputs.collection-name }}
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: false
 
@@ -190,6 +190,6 @@ jobs:
         working-directory: ./ansible_collections/${{ inputs.namespace }}/${{ inputs.collection-name }}
 
       # See the reports at https://codecov.io/gh/devopsarr/ansible-collection-${{ inputs.collection-name }}
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: false
