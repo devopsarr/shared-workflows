@@ -21,7 +21,7 @@ jobs:
         run: |
           app=${{ github.repository }} &&\
           echo "name=$(echo $app | sed -e 's%.*/%%g' -e 's%-.*%%g')" >> $GITHUB_OUTPUT
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # Allow access to older tag information.
           fetch-depth: 0
@@ -45,7 +45,7 @@ jobs:
     if: needs.release-please.outputs.release_created
     environment: crates.io
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install rust
         uses: dtolnay/rust-toolchain@stable
       - name: Publish
