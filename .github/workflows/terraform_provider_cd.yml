@@ -21,7 +21,7 @@ jobs:
           # Allow access to older tag information.
           fetch-depth: 0
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
       - name: Release Please
@@ -40,7 +40,7 @@ jobs:
         with:
           # Allow access to older tag information.
           fetch-depth: 0
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
       - name: Import GPG key
