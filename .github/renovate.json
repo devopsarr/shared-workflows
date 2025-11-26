@@ -9,7 +9,7 @@
       "customType": "regex",
       "description": "Update _VERSION variables in workflows",
       "fileMatch": [
-        "^.github/workflows/.*\\.yml$"
+        ".github/workflows/.*\\.yml"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>.+?))?\\s+.*?[A-Z_]+?_VERSION( ?\\??= ?|: )(?<currentValue>.+?)\\s"
