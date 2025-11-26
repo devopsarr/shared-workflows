@@ -3,5 +3,26 @@
   "extends": [
     "config:base",
     ":semanticCommitTypeAll(chore)"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update _VERSION variables in workflows",
+      "fileMatch": [
+        "^.github/workflows/.*\\.yml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>.+?))?\\s+.*?[A-Z_]+?_VERSION( ?\\??= ?|: )(?<currentValue>.+?)\\s"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "groupName": "golangci-lint",
+      "matchDepNames": [
+        "golangci-lint",
+        "golangci-lint-action"
+      ]
+    }
   ]
 }
