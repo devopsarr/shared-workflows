@@ -20,6 +20,8 @@ permissions:
 # Default values to simplify job configurations below.
 env:
   API_KEY: ${{ github.run_id }}${{ github.sha }}${{ github.run_attempt }}
+  # datasource=github-releases depName=golangci-lint packageName=golangci/golangci-lint
+  GOLANGCI_LINT_VERSION: v1.61.0
 
 jobs:
   # Lint
@@ -35,7 +37,7 @@ jobs:
       - name: lint
         uses: golangci/golangci-lint-action@v9.1.0
         with:
-          version: v1.61.0
+          version: ${{ env.GOLANGCI_LINT_VERSION }}
           skip-cache: true
           args: --timeout=10m
 
@@ -94,10 +96,10 @@ jobs:
       - name: run tests
         run: go test -timeout 30m -race -coverprofile=coverage.out -covermode=atomic -v -cover ./...
         env:
-          ${{ inputs.app-name }}_URL: "http://127.0.0.1:${{ env.APP_PORT }}"
+          ${{ inputs.app-name }}_URL: 'http://127.0.0.1:${{ env.APP_PORT }}'
           ${{ inputs.app-name }}_API_KEY: ${{ env.API_KEY }}
-          ${{ inputs.app-name }}_EXTRA_HEADER_test: "acceptance"
-          TF_ACC: "1"
+          ${{ inputs.app-name }}_EXTRA_HEADER_test: 'acceptance'
+          TF_ACC: '1'
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
