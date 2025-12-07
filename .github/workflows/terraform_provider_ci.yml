@@ -21,7 +21,7 @@ permissions:
 env:
   API_KEY: ${{ github.run_id }}${{ github.sha }}${{ github.run_attempt }}
   # renovate: datasource=github-releases depName=golangci-lint packageName=golangci/golangci-lint
-  GOLANGCI_LINT_VERSION: v2.6.2
+  GOLANGCI_LINT_VERSION: v2.7.2
 
 jobs:
   # Lint
