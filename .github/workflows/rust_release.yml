@@ -30,7 +30,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Release Please
         id: release_please
-        uses: google-github-actions/release-please-action@v3
+        uses: googleapis/release-please-action@v3
         with:
           release-type: rust
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
