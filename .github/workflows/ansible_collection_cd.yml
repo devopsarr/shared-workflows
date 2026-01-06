@@ -15,7 +15,7 @@ on:
 env:
   # Python language version to use This value should also be updated
   # in the testing workflow if changed.
-  PYTHON_VERSION: '3.10'
+  PYTHON_VERSION: '3.13'
 
 jobs:
   release-please:
