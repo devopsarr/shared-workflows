@@ -140,6 +140,8 @@ jobs:
         exclude:
           - ansible: devel
             python: '3.11'
+          - ansible: stable-2.20
+            python: '3.11'
     steps:
       - name: Check out code
         uses: actions/checkout@v6
