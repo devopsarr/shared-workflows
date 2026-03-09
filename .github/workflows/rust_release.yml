@@ -30,13 +30,9 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
       - name: Release Please
         id: release_please
-        uses: googleapis/release-please-action@v3
+        uses: googleapis/release-please-action@v4
         with:
-          release-type: rust
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
-          extra-files: |
-            README.md
-            ${{ steps.app-name.outputs.name }}/src/apis/configuration.rs
 
   publish:
     runs-on: ubuntu-latest
