@@ -36,17 +36,9 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Release Please
         id: release_please
-        uses: googleapis/release-please-action@v3
+        uses: googleapis/release-please-action@v4
         with:
-          release-type: python
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
-          extra-files: |
-            README.md
-            pyproject.toml
-            setup.py
-            ${{ steps.app-name.outputs.name }}/__init__.py
-            ${{ steps.app-name.outputs.name }}/configuration.py
-            ${{ steps.app-name.outputs.name }}/api_client.py
 
   pypi-release:
     runs-on: ubuntu-latest
@@ -69,4 +61,3 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
-
