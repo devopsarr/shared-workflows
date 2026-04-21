@@ -101,6 +101,6 @@ jobs:
           ${{ inputs.app-name }}_EXTRA_HEADER_test: 'acceptance'
           TF_ACC: '1'
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           fail_ci_if_error: false
