@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-go@v6
         with:
           go-version-file: 'go.mod'
@@ -70,7 +70,7 @@ jobs:
           - '1.5.*'
           - '1.6.*'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: create config file for both *arr and *err apps
         run: >
           echo "<Config><ApiKey>${{ env.API_KEY }}</ApiKey></Config>" > ${{ github.workspace }}/.github/provider/config.xml &&
