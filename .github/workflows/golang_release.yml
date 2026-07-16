@@ -30,7 +30,7 @@ jobs:
           # Allow access to older tag information.
           fetch-depth: 0
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_VERSION }}
       - name: Release Please
@@ -48,7 +48,7 @@ jobs:
         with:
           # Allow access to older tag information.
           fetch-depth: 0
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_VERSION }}
       - name: Run GoReleaser
