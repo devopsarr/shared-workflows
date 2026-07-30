@@ -26,7 +26,7 @@ jobs:
           go-version-file: 'go.mod'
       - name: Release Please
         id: release_please
-        uses: googleapis/release-please-action@v4
+        uses: googleapis/release-please-action@v5
         with:
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
   gorelease:
